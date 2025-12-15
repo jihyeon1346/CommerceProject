@@ -15,6 +15,10 @@ public class Product
         this.stock = stock;
     }
 
+    public String  getName()
+    {
+        return this.name;
+    }
 
     public String toString()
     {
