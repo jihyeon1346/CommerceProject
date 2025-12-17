@@ -21,9 +21,14 @@ public class Product
         return this.name;
     }
 
+    // 리스트 표시용
     public String toString()
     {
         return name + " | " + String.format("%,d", price) + "원 | " + description;
+    }
+    // 선택 표시용
+    public String toDetailString() {
+        return name + " | " + String.format("%,d", price) + "원 | " + description + " | 재고: " + stock + "개";
     }
 
 
