@@ -24,6 +24,11 @@ public class Product
     {
         return this.price;
     }
+    public int setStock(int stock)
+    {
+        this.stock = stock;
+        return stock;
+    }
 
 
     // 리스트 표시용

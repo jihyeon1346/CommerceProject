@@ -6,7 +6,6 @@ import java.util.List;
 public class Cart
 {
 
-        private int price;
         private List<Product> cart;
 
 

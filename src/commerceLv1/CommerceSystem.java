@@ -31,7 +31,7 @@ public class CommerceSystem
             System.out.println("0. 종료 | 프로그램 종료\n");
             System.out.println("[ 주문 관리 ]");
             System.out.println("4. 장바구니 확인   | 장바구니를 확인 후 주문합니다.");
-            System.out.println("5. 주문 취소      | 진행중인 주문을 취소합니다.");
+            System.out.println("5. 주문 취소      | 진행중인 주문을 취소합니다.\n");
 
             try
             {
@@ -59,8 +59,8 @@ public class CommerceSystem
                 }
                 else if (menuChoice == 4)
                 {
-                    System.out.println("아래와 같이 주문 하시겠습니까?");
-                    //showCart(); 카트목록 불러오기 함수
+                    System.out.println("아래와 같이 주문 하시겠습니까?\n");
+                    showCart(); //카트목록 불러오기 함수
 
                 }
                 else if (menuChoice == 5)
@@ -105,7 +105,7 @@ public class CommerceSystem
             {
                 System.out.println("선택한 제품: " + category.getProducts().get(choice - 1).toDetailString() + "\n");
                 System.out.println(category.getProducts().get(choice - 1));
-                System.out.println("위 상품을 장바구니에 추가하시겠습니까?");
+                System.out.println("위 상품을 장바구니에 추가하시겠습니까?\n");
                 System.out.println("1. 확인       2. 취소");
                 int cartChoice = scanner.nextInt();
                 if (cartChoice == 1)
@@ -136,7 +136,39 @@ public class CommerceSystem
         }
     }//public void productChoice(CategoryProduct category)
 
+    public void showCart()
+    {
+        System.out.println("[ 장바구니 내역 ]\n");
+        if (cart.getCartCount() == 0)
+        {
+            System.out.println("장바구니가 비어있습니다.\n");
+            return;
+        }
+        int total = 0;
+        for (int i = 0; i < cart.getCart().size(); i++)
+        {
+            Product cartList = cart.getCart().get(i);
+            System.out.println((i + 1) + ". " + cartList);
+            total += cartList.getPrice();
+        }
+        System.out.println("[ 총 주문 금액 ]\n" + String.format("%,d", total) + "원\n");
 
+        int choice = scanner.nextInt();
+        System.out.println("1. 주문 확정      2. 메뉴로 돌아가기\n");
+        if (choice == 1)
+        {
+
+        }
+        else if(choice == 2)
+        {
+
+        }
+        else
+        {
+            System.out.println("잘못된 입력입니다.\n");
+        }
+
+    }
 
 
 }
