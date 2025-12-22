@@ -1,4 +1,4 @@
-package commerceStep3;
+package commerceLv1;
 
 public class Product
 {
@@ -20,6 +20,11 @@ public class Product
 
         return this.name;
     }
+    public int getPrice()
+    {
+        return this.price;
+    }
+
 
     // 리스트 표시용
     public String toString()

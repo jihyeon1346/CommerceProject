@@ -1,4 +1,4 @@
-package commerceStep3;
+package commerceLv1;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -6,9 +6,12 @@ import java.util.Scanner;
 public class CommerceSystem
 {
     private Scanner scanner; //스캐너 여러개 생성시 충돌로 클래스필드로 생성
+    private Cart cart;
 
     public void start()
     {
+        cart = new Cart();
+
         CategoryProduct electronics = new CategoryProduct("전자제품");
         electronics.addProduct(new Product("Galaxy S25", 1200000, "최신 안드로이드 스마트폰", 10));
         electronics.addProduct(new Product("iPhone 16", 1350000, "Apple의 최신 스마트폰", 10));
@@ -57,6 +60,8 @@ public class CommerceSystem
                 else if (menuChoice == 4)
                 {
                     System.out.println("아래와 같이 주문 하시겠습니까?");
+                    //showCart(); 카트목록 불러오기 함수
+
                 }
                 else if (menuChoice == 5)
                 {
@@ -71,7 +76,7 @@ public class CommerceSystem
             {
                 System.out.println("잘못된 입력입니다.\n");
             }
-        }
+        }//while (true)
 
         scanner.close();
     }
@@ -105,6 +110,8 @@ public class CommerceSystem
                 int cartChoice = scanner.nextInt();
                 if (cartChoice == 1)
                 {
+                    Product selectedProduct = category.getProducts().get(choice - 1);
+                    cart.addCart(selectedProduct);
 
                 }
                 else if (cartChoice == 2)
@@ -127,5 +134,9 @@ public class CommerceSystem
         {
             System.out.println("잘못된 입력입니다.\n");
         }
-    }
+    }//public void productChoice(CategoryProduct category)
+
+
+
+
 }
