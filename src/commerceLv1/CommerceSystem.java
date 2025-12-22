@@ -101,7 +101,9 @@ public class CommerceSystem
         System.out.println("1. 장바구니 초기화      2. 메뉴로 돌아가기\n");
         try {
             int choice = scanner.nextInt();
-            if (choice == 1) {
+            if (choice == 1) 
+            {
+                System.out.println("비우기 완료");
                 cart.clearCart();//세터함수
             } else if (choice == 2) {
                 System.out.println("돌아가기");
@@ -147,8 +149,15 @@ public class CommerceSystem
                 if (cartChoice == 1)
                 {
                     Product selectedProduct = category.getProducts().get(choice - 1);
-                    cart.addCart(selectedProduct);
-                    System.out.println(category.getProducts().get(choice - 1).getName() + "가 장바구니에 추가되었습니다.\n");
+                    if(selectedProduct.getStock() <= 0)
+                    {
+                        System.out.println("재고가 부족합니다.\n");
+                    }
+                    else
+                    {
+                        cart.addCart(selectedProduct);
+                        System.out.println(category.getProducts().get(choice - 1).getName() + "가 장바구니에 추가되었습니다.\n");
+                    }
 
                 }
                 else if (cartChoice == 2)
@@ -191,18 +200,29 @@ public class CommerceSystem
         }
         System.out.println("[ 총 주문 금액 ]\n" + String.format("%,d", total) + "원\n");
         System.out.println("1. 주문 확정      2. 메뉴로 돌아가기\n");
-        try {
+        try
+        {
             int choice = scanner.nextInt();
 
-            if (choice == 1) {
-                System.out.println("주문이 완료되었습니다! 총 금액: " + String.format("%, d", total) + "원");
-                for (int i = 0; i < cart.getCart().size(); i++) {
-                    Product cartList = cart.getCart().get(i);
+            if (choice == 1)
+            {
 
-                    System.out.println(cartList.getName() + " 재고가 " + cartList.getStock() + "개 -> " +
-                            cartList.setStock(cartList.getStock() - 1) + "개로 업데이트되었습니다.\n");
+                for (int i = 0; i < cart.getCart().size(); i++)
+                {
+                    Product cartList = cart.getCart().get(i);
+                    if (cartList.getStock() <= 0)
+                    {
+                        System.out.println(cartList.getName() + " 재고가 부족합니다.\n");
+                        total -= cartList.getPrice();
+                    }
+                    else
+                    {
+                        System.out.println(cartList.getName() + " 재고가 " + cartList.getStock() + "개 -> " +
+                                cartList.setStock(cartList.getStock() - 1) + "개로 업데이트되었습니다.\n");
+                    }
 
                 }
+                System.out.println("주문이 완료되었습니다! 총 금액: " + String.format("%, d", total) + "원\n");
                 cart.clearCart();
 
 
