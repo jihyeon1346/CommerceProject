@@ -1,6 +1,8 @@
 package commerceLv1;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CommerceSystem
@@ -106,12 +108,14 @@ public class CommerceSystem
                 System.out.println("선택한 제품: " + category.getProducts().get(choice - 1).toDetailString() + "\n");
                 System.out.println(category.getProducts().get(choice - 1));
                 System.out.println("위 상품을 장바구니에 추가하시겠습니까?\n");
-                System.out.println("1. 확인       2. 취소");
+                System.out.println("1. 확인       2. 취소l\n");
+
                 int cartChoice = scanner.nextInt();
                 if (cartChoice == 1)
                 {
                     Product selectedProduct = category.getProducts().get(choice - 1);
                     cart.addCart(selectedProduct);
+                    System.out.println(category.getProducts().get(choice - 1).getName() + "가 장바구니에 추가되었습니다.\n");
 
                 }
                 else if (cartChoice == 2)
@@ -152,11 +156,22 @@ public class CommerceSystem
             total += cartList.getPrice();
         }
         System.out.println("[ 총 주문 금액 ]\n" + String.format("%,d", total) + "원\n");
-
-        int choice = scanner.nextInt();
         System.out.println("1. 주문 확정      2. 메뉴로 돌아가기\n");
+        int choice = scanner.nextInt();
+
         if (choice == 1)
         {
+            System.out.println("주문이 완료되었습니다! 총 금액: " + String.format("%, d", total) + "원");
+            for(int i = 0; i < cart.getCart().size(); i++)
+                {
+                Product cartList = cart.getCart().get(i);
+
+                System.out.println(cartList.getName() + " 재고가 " + cartList.getStock() + "개 -> " +
+                        cartList.setStock(cartList.getStock() -1 ) + "개로 업데이트되었습니다.");
+
+                }
+
+
 
         }
         else if(choice == 2)

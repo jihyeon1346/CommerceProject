@@ -7,6 +7,7 @@ public class Cart
 {
 
         private List<Product> cart;
+        private String name;
 
 
         public Cart()
@@ -22,6 +23,7 @@ public class Cart
         {
             return cart.size();
         }
+
 
         public void addCart(Product product)
         {
