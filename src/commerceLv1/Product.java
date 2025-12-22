@@ -47,5 +47,5 @@ public class Product
         return name + " | " + String.format("%,d", price) + "원 | " + description + " | 재고: " + stock + "개";
     }
 
-
 }
+

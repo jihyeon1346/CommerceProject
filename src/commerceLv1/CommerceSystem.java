@@ -1,8 +1,6 @@
 package commerceLv1;
 
-import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 
 public class CommerceSystem
@@ -67,7 +65,7 @@ public class CommerceSystem
                 }
                 else if (menuChoice == 5)
                 {
-
+                    removeCart();
                 }
                 else
                 {
@@ -81,6 +79,38 @@ public class CommerceSystem
         }//while (true)
 
         scanner.close();
+    }
+    public void removeCart()
+    {
+        System.out.println("[ 장바구니 내역 ]\n");
+        if (cart.getCartCount() == 0)
+        {
+            System.out.println("장바구니가 비어있습니다.\n");
+            return;
+
+        }
+        int total = 0;
+        for (int i = 0; i < cart.getCart().size(); i++)
+        {
+            Product cartList = cart.getCart().get(i);
+            System.out.println((i + 1) + ". " + cartList);
+            total += cartList.getPrice();
+        }
+        System.out.println("[ 총 주문 금액 ]\n" + String.format("%,d", total) + "원\n");
+        System.out.println("1. 장바구니 초기화      2. 메뉴로 돌아가기\n");
+        int choice = scanner.nextInt();
+        if (choice == 1)
+        {
+            cart.clearCart();//세터함수
+        }
+        else if (choice == 2)
+        {
+            System.out.println("돌아가기");
+        }
+        else
+        {
+            System.out.println("잘못된 입력입니다.");
+        }
     }
 
     public void productChoice(CategoryProduct category)
@@ -102,13 +132,14 @@ public class CommerceSystem
             if (choice == 0)
             {
                 System.out.println("뒤로가기\n");
+                scanner.nextLine();
             }
             else if (choice >= 1 && choice <= category.getProductCount())
             {
                 System.out.println("선택한 제품: " + category.getProducts().get(choice - 1).toDetailString() + "\n");
                 System.out.println(category.getProducts().get(choice - 1));
                 System.out.println("위 상품을 장바구니에 추가하시겠습니까?\n");
-                System.out.println("1. 확인       2. 취소l\n");
+                System.out.println("1. 확인       2. 취소\n");
 
                 int cartChoice = scanner.nextInt();
                 if (cartChoice == 1)
@@ -120,7 +151,7 @@ public class CommerceSystem
                 }
                 else if (cartChoice == 2)
                 {
-
+                    System.out.println("취소");
                 }
                 else
                 {
@@ -167,16 +198,17 @@ public class CommerceSystem
                 Product cartList = cart.getCart().get(i);
 
                 System.out.println(cartList.getName() + " 재고가 " + cartList.getStock() + "개 -> " +
-                        cartList.setStock(cartList.getStock() -1 ) + "개로 업데이트되었습니다.");
+                        cartList.setStock(cartList.getStock() -1 ) + "개로 업데이트되었습니다.\n");
 
                 }
+            cart.clearCart();
 
 
 
         }
         else if(choice == 2)
         {
-
+            System.out.println("돌아갑니다.");
         }
         else
         {
