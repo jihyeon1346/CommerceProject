@@ -75,6 +75,7 @@ public class CommerceSystem
             catch (InputMismatchException e)
             {
                 System.out.println("잘못된 입력입니다.\n");
+                scanner.nextLine();
             }
         }//while (true)
 
@@ -98,18 +99,19 @@ public class CommerceSystem
         }
         System.out.println("[ 총 주문 금액 ]\n" + String.format("%,d", total) + "원\n");
         System.out.println("1. 장바구니 초기화      2. 메뉴로 돌아가기\n");
-        int choice = scanner.nextInt();
-        if (choice == 1)
+        try {
+            int choice = scanner.nextInt();
+            if (choice == 1) {
+                cart.clearCart();//세터함수
+            } else if (choice == 2) {
+                System.out.println("돌아가기");
+            } else {
+                System.out.println("잘못된 입력입니다.");
+            }
+        }catch (InputMismatchException e)
         {
-            cart.clearCart();//세터함수
-        }
-        else if (choice == 2)
-        {
-            System.out.println("돌아가기");
-        }
-        else
-        {
-            System.out.println("잘못된 입력입니다.");
+            System.out.println("잘못된 입력입니다.\n");
+            scanner.nextLine();
         }
     }
 
@@ -168,6 +170,7 @@ public class CommerceSystem
         catch (InputMismatchException e)
         {
             System.out.println("잘못된 입력입니다.\n");
+            scanner.nextLine();
         }
     }//public void productChoice(CategoryProduct category)
 
@@ -188,31 +191,30 @@ public class CommerceSystem
         }
         System.out.println("[ 총 주문 금액 ]\n" + String.format("%,d", total) + "원\n");
         System.out.println("1. 주문 확정      2. 메뉴로 돌아가기\n");
-        int choice = scanner.nextInt();
+        try {
+            int choice = scanner.nextInt();
 
-        if (choice == 1)
-        {
-            System.out.println("주문이 완료되었습니다! 총 금액: " + String.format("%, d", total) + "원");
-            for(int i = 0; i < cart.getCart().size(); i++)
-                {
-                Product cartList = cart.getCart().get(i);
+            if (choice == 1) {
+                System.out.println("주문이 완료되었습니다! 총 금액: " + String.format("%, d", total) + "원");
+                for (int i = 0; i < cart.getCart().size(); i++) {
+                    Product cartList = cart.getCart().get(i);
 
-                System.out.println(cartList.getName() + " 재고가 " + cartList.getStock() + "개 -> " +
-                        cartList.setStock(cartList.getStock() -1 ) + "개로 업데이트되었습니다.\n");
+                    System.out.println(cartList.getName() + " 재고가 " + cartList.getStock() + "개 -> " +
+                            cartList.setStock(cartList.getStock() - 1) + "개로 업데이트되었습니다.\n");
 
                 }
-            cart.clearCart();
+                cart.clearCart();
 
 
-
-        }
-        else if(choice == 2)
-        {
-            System.out.println("돌아갑니다.");
-        }
-        else
+            } else if (choice == 2) {
+                System.out.println("돌아갑니다.");
+            } else {
+                System.out.println("잘못된 입력입니다.\n");
+            }
+        }catch (InputMismatchException e)
         {
             System.out.println("잘못된 입력입니다.\n");
+            scanner.nextLine();
         }
 
     }
