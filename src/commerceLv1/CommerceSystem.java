@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class CommerceSystem
 {
     private Scanner scanner; //스캐너 여러개 생성시 충돌로 클래스필드로 생성
-    private Cart cart;
+    private Cart cart;  //장바구니 데이터가져오기
 
     public void start()
     {
@@ -22,7 +22,7 @@ public class CommerceSystem
 
         scanner = new Scanner(System.in);
 
-        while (true)
+        while (true)    //반복입력
         {
             System.out.println("[ 실시간 커머스 플랫폼 메인 ]");
             System.out.println("1. " + electronics.getCategoryName());
@@ -45,7 +45,7 @@ public class CommerceSystem
                 else if (menuChoice == 1)
                 {
                     System.out.println(electronics.getCategoryName() + "을(를) 선택했습니다.\n");
-                    productChoice(electronics);
+                    productChoice(electronics); //제품 선택 함수호출
                 }
                 else if (menuChoice == 2)
                 {
@@ -60,12 +60,12 @@ public class CommerceSystem
                 else if (menuChoice == 4)
                 {
                     System.out.println("아래와 같이 주문 하시겠습니까?\n");
-                    showCart(); //카트목록 불러오기 함수
+                    showCart(); //장바구니 목록 불러오기 함수
 
                 }
                 else if (menuChoice == 5)
                 {
-                    removeCart();
+                    removeCart();   // 장바구니 초기화 함수
                 }
                 else
                 {
@@ -75,7 +75,7 @@ public class CommerceSystem
             catch (InputMismatchException e)
             {
                 System.out.println("잘못된 입력입니다.\n");
-                scanner.nextLine();
+                scanner.nextLine(); // 문자열 입력시 남은 버퍼가 반복문을 작동시키지않게 버퍼 비우기
             }
         }//while (true)
 
@@ -90,12 +90,12 @@ public class CommerceSystem
             return;
 
         }
-        int total = 0;
+        int total = 0;  //총 금액 담을 변수
         for (int i = 0; i < cart.getCart().size(); i++)
         {
-            Product cartList = cart.getCart().get(i);
+            Product cartList = cart.getCart().get(i);   // i 번째 순서대로가져오기
             System.out.println((i + 1) + ". " + cartList);
-            total += cartList.getPrice();
+            total += cartList.getPrice();   // 가져온 제품 가격 total에 다 더해주기
         }
         System.out.println("[ 총 주문 금액 ]\n" + String.format("%,d", total) + "원\n");
         System.out.println("1. 장바구니 초기화      2. 메뉴로 돌아가기\n");
@@ -117,15 +117,14 @@ public class CommerceSystem
         }
     }
 
-    public void productChoice(CategoryProduct category)
+    public void productChoice(CategoryProduct category) // 제품 선택 함수
     {
 
-        System.out.println();
-        System.out.println("[ " + category.getCategoryName() + " 카테고리 ]");
+        System.out.println("[ " + category.getCategoryName() + " 카테고리 ]");  //카테고리 이름별로 이름이 출력
 
-        for (int i = 0; i < category.getProducts().size(); i++)
+        for (int i = 0; i < category.getProducts().size(); i++) //받아온 카테고리의 리스트 길이 만큼
         {
-            System.out.println((i + 1) + ". " + category.getProducts().get(i));
+            System.out.println((i + 1) + ". " + category.getProducts().get(i)); //i + 1 제품의 종류 만큼 숫자가 계속 이어지게
         }
         System.out.println("0. 뒤로가기");
 
@@ -140,7 +139,8 @@ public class CommerceSystem
             }
             else if (choice >= 1 && choice <= category.getProductCount())
             {
-                System.out.println("선택한 제품: " + category.getProducts().get(choice - 1).toDetailString() + "\n");
+                System.out.println("선택한 제품: " + category.getProducts().
+                                    get(choice - 1).toDetailString() + "\n"); //toDetailString 재고까지 나오게 출력
                 System.out.println(category.getProducts().get(choice - 1));
                 System.out.println("위 상품을 장바구니에 추가하시겠습니까?\n");
                 System.out.println("1. 확인       2. 취소\n");
@@ -149,7 +149,7 @@ public class CommerceSystem
                 if (cartChoice == 1)
                 {
                     Product selectedProduct = category.getProducts().get(choice - 1);
-                    if(selectedProduct.getStock() <= 0)
+                    if(selectedProduct.getStock() <= 0)   //재고가 0이되면 장바구니에 추가되지못하게..
                     {
                         System.out.println("재고가 부족합니다.\n");
                     }
@@ -183,7 +183,7 @@ public class CommerceSystem
         }
     }//public void productChoice(CategoryProduct category)
 
-    public void showCart()
+    public void showCart()  //장바구니 리스트를 보여주는 함수
     {
         System.out.println("[ 장바구니 내역 ]\n");
         if (cart.getCartCount() == 0)
@@ -219,11 +219,11 @@ public class CommerceSystem
                     {
                         System.out.println(cartList.getName() + " 재고가 " + cartList.getStock() + "개 -> " +
                                 cartList.setStock(cartList.getStock() - 1) + "개로 업데이트되었습니다.\n");
-                    }
+                    }               //게터로 현재 개수를 조회하고 세터로 -1 값만큼 출력 10개 -> (10-1)
 
                 }
                 System.out.println("주문이 완료되었습니다! 총 금액: " + String.format("%, d", total) + "원\n");
-                cart.clearCart();
+                cart.clearCart();   //주문완료시 장바구니 리스트 초기화
 
 
             } else if (choice == 2) {
