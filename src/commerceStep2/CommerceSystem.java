@@ -1,13 +1,13 @@
-package commerceStep1;
+package commerceStep2;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class CommerceApp
+public class CommerceSystem
 {
-    public static void main(String[] args)
+    public void start()
     {
         List<Product> products = new ArrayList<>();
         products.add(new Product("Galaxy S25", 1200000, "최신 안드로이드 스마트폰", 10));

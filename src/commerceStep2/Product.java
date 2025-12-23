@@ -1,4 +1,4 @@
-package commerceStep1;
+package commerceStep2;
 
 public class Product
 {
@@ -17,11 +17,14 @@ public class Product
 
     public String  getName()
     {
+
         return this.name;
     }
 
     public String toString()
+
     {
         return name + " | " + String.format("%,d", price) + "원 | " + description;
     }
+
 }
